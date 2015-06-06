@@ -1,0 +1,11 @@
+---
+
+- name: ensure service directory exists
+  file:
+    state=directory
+    path={{ consul_service_dir }}
+
+- name: create service
+  template:
+    src=services.json.j2
+    dest={{ consul_service_dir }}/services.json

@@ -1,0 +1,26 @@
+{
+	"services": [
+{%- for service in consul_service_list -%}
+	{
+		"id": "{{ service.name }}",
+		"name": "{{ service.name }}",
+		"address": "{{ service.address }}",
+		"port": {{ service.port }},
+		"tags": [
+		{%- if service.tags|length > 0 -%}
+		"{{ service.tags|join('", "') }}"
+		{%- endif -%}
+		],
+		"checks": [
+		{%- for check in service.checks -%}
+		{
+			"script": "{{ check.script }}",
+			"interval": "{{ check.interval }}",
+			"ttl": "{{ check.ttl }}"
+		}
+		{%- endfor -%}
+		]
+	}
+{% endfor %}
+	]
+}

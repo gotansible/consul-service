@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: true
+  roles:
+    - role: consul-service
+      consul_service_list:
+        - name: myservice
+          address: 127.0.0.1
+          port: 9999
+          checks:
+            - script: echo hello
+              interval: 10s
+              ttl: 30s
+          tags:
+            - aba
+            - daba
+

@@ -4,7 +4,8 @@
   roles:
     - role: consul-service
       consul_service_list:
-        - name: myservice
+        -
+          name: myservice
           address: 127.0.0.1
           port: 9999
           checks:
@@ -14,4 +15,8 @@
           tags:
             - aba
             - daba
+        -
+          name: anotherone
+          address: 127.0.0.1
+          port: 9999
 

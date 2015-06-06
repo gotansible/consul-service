@@ -1,23 +1,23 @@
 {
 	"services": [
 {%- for service in consul_service_list -%}
-	{
+	{%- if loop.index0 > 0 -%},{% endif %}{
 		"id": "{{ service.name }}",
 		"name": "{{ service.name }}",
 		"address": "{{ service.address }}",
 		"port": {{ service.port }},
 		"tags": [
-		{%- if service.tags|length > 0 -%}
+		{%- if service.tags|default([])|length > 0 -%}
 		"{{ service.tags|join('", "') }}"
 		{%- endif -%}
 		],
 		"checks": [
-		{%- for check in service.checks -%}
+		{%- for check in service.checks|default([]) -%}
 		{
 			"script": "{{ check.script }}",
 			"interval": "{{ check.interval }}",
 			"ttl": "{{ check.ttl }}"
-		}
+		}{%- if loop.index0 > 0 -%},{% endif %}
 		{%- endfor -%}
 		]
 	}

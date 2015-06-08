@@ -9,3 +9,4 @@
   template:
     src=services.json.j2
     dest={{ consul_service_dir }}/services.json
+  notify: restart consul service
